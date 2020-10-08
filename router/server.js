@@ -142,13 +142,14 @@ wsServer.on('connection', (ws, req) => {
 
       if(clients.find((client) => client.name === data)) {
         response.status = false;
+        ws.send(JSON.stringify(response));
       } else {
         response.status = true;
         clients.push(new User(data));
         response.data = clients.filter((client) => client.status);
+        wsServer.clients.forEach((client) => client.send(JSON.stringify(response)));
       }
-
-      ws.send(JSON.stringify(response));      
+     
       return;
     }
 
