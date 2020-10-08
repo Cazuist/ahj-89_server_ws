@@ -148,7 +148,7 @@ wsServer.on('connection', (ws, req) => {
         response.data = clients.filter((client) => client.status);
       }
 
-      wsServer.clients.forEach((client) => client.send(JSON.stringify(response)));      
+      ws.send(JSON.stringify(response));      
       return;
     }
 
